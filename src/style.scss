@@ -65,6 +65,12 @@ body {
   font-size: 20px;
   text-align: center;
   padding-top: 17px;
+  transition: all 0.2s ease;
+}
+
+.key:hover {
+  cursor: pointer;
+  background-color: rgba(255, 127, 80, 0.542);
 }
 
 
@@ -123,4 +129,5 @@ body {
   background-color: coral;
   border-color: white;
   font-size: 18px;
+  transform: scale(95%);
 }
