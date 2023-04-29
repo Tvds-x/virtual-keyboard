@@ -1,0 +1,98 @@
+html {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(193, 182, 153);
+}
+
+.keyboard {
+  max-width: 1085px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(150, 150, 150);
+  border: 3px solid black;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: repeat(30, 30px);
+  grid-template-rows: repeat(5, 60px);
+  grid-gap: 5px;
+}
+
+.key {
+  background-color: rgb(83, 79, 81);
+  border: 1px solid black;
+  color: white;
+  border-radius: 100%;
+  grid-column: span 2;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 17px;
+}
+
+.space {
+  grid-column: span 12;
+  border-radius: 30px;
+}
+
+.shiftRight {
+  grid-column: span 5;
+  border-radius: 30px;
+}
+
+.backspace,
+.capsLock,
+.enter {
+  grid-column: span 4;
+  border-radius: 30px;
+}
+
+.tab,
+.delete,
+.shiftLeft {
+  grid-column: span 3;
+  border-radius: 30px;
+}
+
+.arrows {
+  grid-column: span 8;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 5px;
+  margin-left: 25px;
+}
+
+.arrowUp {
+  margin-right: 80px;
+  margin-left: 75px;
+  width: 70px;
+  height: 30px;
+  padding: 0;
+  border-radius: 20px;
+  order: 0;
+}
+
+.arrowLeft,
+.arrowRight,
+.arrowDown {
+  order: 1;
+  border-radius: 20px;
+  padding: 0;
+  width: 70px;
+  height: 30px;
+}/*# sourceMappingURL=style.css.map */
