@@ -16,8 +16,20 @@ html{
 
 body {
   background-color: 	rgb(193, 182, 153);
+  background-color: white;
 }
-
+.input{
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+  border-radius: 10px;
+  border: 2px solid coral;
+  // background-color: 	rgb(233, 217, 184);
+}
+.input:focus-visible{
+  border-color: coral;
+}
 .keyboard {
   max-width: 1085px;
   padding: 20px;
@@ -97,3 +109,8 @@ body {
   height: 30px;
 }
 
+.active {
+  background-color: coral;
+  border-color: white;
+  font-size: 18px;
+}
