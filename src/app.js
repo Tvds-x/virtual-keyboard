@@ -18,12 +18,10 @@ function init() {
     localStorage.setItem('language', 'ru');
   }
   // eslint-disable-next-line no-use-before-define
-  document.body.addEventListener('keydown', keyDownHandler);
+  document.body.addEventListener('keydown', onKeyDown);
   // eslint-disable-next-line no-use-before-define
-  document.body.addEventListener('keyup', keyUpHandler);
+  document.body.addEventListener('keyup', onKeyUp);
 }
-
-let altFlag = false;
 
 function isValidKey(event) {
   let flag = false;
@@ -36,37 +34,41 @@ function isValidKey(event) {
   return false;
 }
 
-const keyDownHandler = (event) => {
+function switchLanguage() {
+  if (localStorage.getItem('language') === 'eng') {
+    document.body.lastChild.replaceWith(createKeyboard(lang.ru));
+    // eslint-disable-next-line no-use-before-define
+    addListeners();
+    localStorage.setItem('language', 'ru');
+  } else {
+    document.body.lastChild.replaceWith(createKeyboard(lang.eng));
+    // eslint-disable-next-line no-use-before-define
+    addListeners();
+    localStorage.setItem('language', 'eng');
+  }
+}
+
+const presedKeys = new Set();
+
+const onKeyDown = (event) => {
   if (isValidKey(event)) {
     event.preventDefault();
     document.querySelector(`.key[data=${event.code}]`).classList.add('active');
-    if (event.code === 'AltLeft') altFlag = true;
-    if (event.code === 'ShiftLeft' && altFlag) {
-      altFlag = false;
-      if (localStorage.getItem('language') === 'eng') {
-        document.body.lastChild.replaceWith(createKeyboard(lang.ru));
-        // eslint-disable-next-line no-use-before-define
-        addListeners();
-        localStorage.setItem('language', 'ru');
-      } else {
-        document.body.lastChild.replaceWith(createKeyboard(lang.eng));
-        // eslint-disable-next-line no-use-before-define
-        addListeners();
-        localStorage.setItem('language', 'eng');
-      }
-    }
+    presedKeys.add(event.code);
   }
 };
 
-const keyUpHandler = (event) => {
+const onKeyUp = (event) => {
   if (isValidKey(event)) {
     document.querySelector(`.key[data=${event.code}]`).classList.remove('active');
+    if (presedKeys.has('AltLeft') && presedKeys.has('ControlLeft')) switchLanguage();
+    presedKeys.delete(event.code);
   }
 };
 
 function addListeners() {
-  document.body.addEventListener('keydown', keyDownHandler);
-  document.body.addEventListener('keyup', keyUpHandler);
+  document.body.addEventListener('keydown', onKeyDown);
+  document.body.addEventListener('keyup', onKeyUp);
 }
 
 init();

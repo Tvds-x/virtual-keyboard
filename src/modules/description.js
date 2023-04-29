@@ -5,7 +5,7 @@ export default function createDescription() {
   systemDescription.innerText = 'Created in Ubuntu WSL';
   systemDescription.classList.add('system-desc');
   const langSwitchDescription = document.createElement('p');
-  langSwitchDescription.innerText = 'Language switch: LShift + Alt';
+  langSwitchDescription.innerText = 'Language switch: Left Ctrl + Left Alt';
   langSwitchDescription.classList.add('lang-desc');
 
   description.append(systemDescription, langSwitchDescription);
