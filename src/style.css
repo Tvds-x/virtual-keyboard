@@ -15,8 +15,16 @@ html {
 }
 
 body {
-  background-color: rgb(193, 182, 153);
   background-color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+}
+
+.description {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -5%);
 }
 
 .input {
