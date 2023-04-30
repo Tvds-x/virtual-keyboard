@@ -51,11 +51,46 @@ function switchLanguage() {
 const presedKeys = new Set();
 
 const onKeyDown = (event) => {
+  const textArea = document.querySelector('.input');
+  const modifications = ['ControlLeft', 'MetaLeft', 'AltLeft', 'AltRight', 'ControlRight'];
   if (isValidKey(event)) {
     event.preventDefault();
-    document.querySelector(`.key[data=${event.code}]`).classList.add('active');
-    presedKeys.add(event.code);
+    const pressedKey = document.querySelector(`.key[data=${event.code}]`);
+    pressedKey.classList.add('active');
+    if (pressedKey.getAttribute('data') === 'Tab') {
+      textArea.value += '    ';
+      return;
+    }
+    if (pressedKey.getAttribute('data') === 'Space') {
+      textArea.value += ' ';
+      return;
+    }
+    if (pressedKey.getAttribute('data') === 'Backspace') {
+      const caretPos = textArea.selectionStart;
+      if (!caretPos) return;
+      textArea.value = `${textArea.value.slice(0, caretPos - 1)}${textArea.value.slice(caretPos)}`;
+      textArea.selectionEnd = caretPos - 1;
+      return;
+    }
+    if (pressedKey.getAttribute('data') === 'Delete') {
+      const caretPos = textArea.selectionStart;
+      if (!caretPos) return;
+      textArea.value = `${textArea.value.slice(0, caretPos)}${textArea.value.slice(caretPos + 1)}`;
+      textArea.selectionEnd = caretPos;
+      return;
+    }
+    if (pressedKey.getAttribute('data') === 'Enter') {
+      textArea.value += '\n';
+      return;
+    }
+    if (modifications.includes(pressedKey.getAttribute('data'))) {
+      presedKeys.add(event.code);
+      return;
+    }
+    textArea.value += pressedKey.innerText;
   }
+  /// ToDo:
+  /// Caps, L-R Shift
 };
 
 const onKeyUp = (event) => {
