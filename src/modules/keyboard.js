@@ -1,4 +1,4 @@
-export default function createKeyboard(initLang) {
+export default function createKeyboard(initLang, caps) {
   const keyboard = document.createElement('div');
   keyboard.classList.add('keyboard');
   const additionalClasses = ['Backspace', 'Delete', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'Space'];
@@ -19,8 +19,14 @@ export default function createKeyboard(initLang) {
       key.setAttribute('data', element.keyCode);
       arrows.appendChild(key);
     } else {
-      key.innerText = element.small;
+      if (caps && element.small.length === 1) {
+        key.innerText = element.small.toUpperCase();
+      } else {
+        key.innerText = element.small;
+      }
       key.setAttribute('data', element.keyCode);
+      key.setAttribute('shift', element.shift);
+      key.setAttribute('small', element.small);
       keyboard.appendChild(key);
     }
     keyboard.appendChild(arrows);
