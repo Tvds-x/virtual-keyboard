@@ -25,6 +25,13 @@ pre {
   -moz-tab-size: 4;
     -o-tab-size: 4;
        tab-size: 4;
+  padding: 10px 20px;
+  font-family: "Inter", sans-serif;
+  width: 60%;
+  height: 150px;
+  font-size: 20px;
+  resize: none;
+  outline: none;
 }
 
 .description {
