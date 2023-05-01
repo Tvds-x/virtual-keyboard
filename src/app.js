@@ -45,6 +45,7 @@ function switchLanguage() {
 
 const presedKeys = new Set();
 let isCaps = false;
+let isShift = false;
 
 const onKeyDown = (event) => {
   const textArea = document.querySelector('.input');
@@ -99,6 +100,32 @@ const onKeyDown = (event) => {
             // eslint-disable-next-line no-param-reassign
             k.innerText = k.innerText.toLowerCase();
             isCaps = false;
+          });
+        }
+      }
+      if (presedKeys.has('ShiftLeft') || presedKeys.has('ShiftRight')) {
+        if (!isCaps) {
+          const key = document.querySelectorAll('.key');
+          key.forEach((k) => {
+            // eslint-disable-next-line max-len
+            if (!((k.getAttribute('shift') && !(k.getAttribute('shift') === 'null')))) return;
+            // eslint-disable-next-line no-param-reassign
+            k.innerText = k.getAttribute('shift');
+            isShift = true;
+          });
+        } else {
+          const key = document.querySelectorAll('.key');
+          key.forEach((k) => {
+            // eslint-disable-next-line no-param-reassign
+            if (k.getAttribute('data').startsWith('Key')) {
+            // eslint-disable-next-line no-param-reassign
+              k.innerText = k.getAttribute('small');
+              isShift = true;
+            } else if (k.getAttribute('shift') && k.getAttribute('shift') !== 'null' && k.getAttribute('shift').toUpperCase() === k.getAttribute('shift').toLowerCase()) {
+              // eslint-disable-next-line no-param-reassign
+              k.innerText = k.getAttribute('shift');
+              isShift = true;
+            }
           });
         }
       }
@@ -163,6 +190,31 @@ const onMouseDown = (event) => {
           isCaps = false;
         });
       }
+    } if (presedKeys.has('ShiftLeft') || presedKeys.has('ShiftRight')) {
+      if (!isCaps) {
+        const key = document.querySelectorAll('.key');
+        key.forEach((k) => {
+          // eslint-disable-next-line max-len
+          if (!((k.getAttribute('shift') && !(k.getAttribute('shift') === 'null')))) return;
+          // eslint-disable-next-line no-param-reassign
+          k.innerText = k.getAttribute('shift');
+          isShift = true;
+        });
+      } else {
+        const key = document.querySelectorAll('.key');
+        key.forEach((k) => {
+          // eslint-disable-next-line no-param-reassign
+          if (k.getAttribute('data').startsWith('Key')) {
+          // eslint-disable-next-line no-param-reassign
+            k.innerText = k.getAttribute('small');
+            isShift = true;
+          } else if (k.getAttribute('shift') && k.getAttribute('shift') !== 'null' && k.getAttribute('shift').toUpperCase() === k.getAttribute('shift').toLowerCase()) {
+            // eslint-disable-next-line no-param-reassign
+            k.innerText = k.getAttribute('shift');
+            isShift = true;
+          }
+        });
+      }
     }
     return;
   }
@@ -174,6 +226,29 @@ const onKeyUp = (event) => {
     document.querySelector(`.key[data=${event.code}]`).classList.remove('active');
     if (isCaps) { document.querySelector('.capsLock').classList.add('active'); }
     if (presedKeys.has('AltLeft') && presedKeys.has('ControlLeft')) switchLanguage();
+    if (isShift && (event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !isCaps) {
+      const key = document.querySelectorAll('.key');
+      key.forEach((k) => {
+        // eslint-disable-next-line max-len
+        if (!((k.getAttribute('shift') && !(k.getAttribute('shift') === 'null')))) return;
+        // eslint-disable-next-line no-param-reassign
+        k.innerText = k.getAttribute('small');
+        isShift = false;
+      });
+    } else if (isShift && (event.code === 'ShiftLeft' || event.code === 'ShiftRight') && isCaps) {
+      const key = document.querySelectorAll('.key');
+      key.forEach((k) => {
+        if (k.getAttribute('data').startsWith('Key')) {
+        // eslint-disable-next-line no-param-reassign
+          k.innerText = k.getAttribute('shift');
+          isShift = false;
+        } else if (k.getAttribute('shift') && k.getAttribute('shift') !== 'null' && k.getAttribute('shift').toUpperCase() === k.getAttribute('shift').toLowerCase()) {
+          // eslint-disable-next-line no-param-reassign
+          k.innerText = k.getAttribute('small');
+          isShift = false;
+        }
+      });
+    }
     presedKeys.delete(event.code);
   }
 };
@@ -183,6 +258,29 @@ const onMouseUp = (event) => {
   document.querySelector(`.key[data=${`"${event.target.getAttribute('data')}"`}]`).classList.remove('active');
   if (isCaps) { document.querySelector('.capsLock').classList.add('active'); }
   if (presedKeys.has('AltLeft') && presedKeys.has('ControlLeft')) switchLanguage();
+  if (isShift && (event.target.getAttribute('data') === 'ShiftLeft' || event.target.getAttribute('data') === 'ShiftRight') && !isCaps) {
+    const key = document.querySelectorAll('.key');
+    key.forEach((k) => {
+      // eslint-disable-next-line max-len
+      if (!((k.getAttribute('shift') && !(k.getAttribute('shift') === 'null')))) return;
+      // eslint-disable-next-line no-param-reassign
+      k.innerText = k.getAttribute('small');
+      isShift = false;
+    });
+  } else if (isShift && (event.target.getAttribute('data') === 'ShiftLeft' || event.target.getAttribute('data') === 'ShiftRight') && isCaps) {
+    const key = document.querySelectorAll('.key');
+    key.forEach((k) => {
+      if (k.getAttribute('data').startsWith('Key')) {
+      // eslint-disable-next-line no-param-reassign
+        k.innerText = k.getAttribute('shift');
+        isShift = false;
+      } else if (k.getAttribute('shift') && k.getAttribute('shift') !== 'null' && k.getAttribute('shift').toUpperCase() === k.getAttribute('shift').toLowerCase()) {
+        // eslint-disable-next-line no-param-reassign
+        k.innerText = k.getAttribute('small');
+        isShift = false;
+      }
+    });
+  }
   presedKeys.delete(document.querySelector(`.key[data=${`"${event.target.getAttribute('data')}"`}]`).getAttribute('data'));
 };
 
