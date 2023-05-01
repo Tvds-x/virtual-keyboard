@@ -20,6 +20,11 @@ body {
   font-size: 30px;
 }
 
+textarea,
+pre {
+  tab-size : 4;
+}
+
 .description {
   position: absolute;
   top: 5%;
