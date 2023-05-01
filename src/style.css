@@ -1,0 +1,147 @@
+html {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+}
+
+textarea,
+pre {
+  -moz-tab-size: 4;
+    -o-tab-size: 4;
+       tab-size: 4;
+  padding: 10px 20px;
+  font-family: "Inter", sans-serif;
+  width: 60%;
+  height: 150px;
+  font-size: 20px;
+  resize: none;
+  outline: none;
+}
+
+.description {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -5%);
+}
+
+.input {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+  border-radius: 10px;
+  border: 2px solid coral;
+}
+
+.input:focus-visible {
+  border-color: coral;
+}
+
+.keyboard {
+  max-width: 1085px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(150, 150, 150);
+  border: 3px solid black;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: repeat(30, 30px);
+  grid-template-rows: repeat(5, 60px);
+  grid-gap: 5px;
+}
+
+.key {
+  background-color: rgb(83, 79, 81);
+  border: 1px solid black;
+  color: white;
+  border-radius: 100%;
+  grid-column: span 2;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 17px;
+  transition: all 0.2s ease;
+}
+
+.key:hover {
+  cursor: pointer;
+  background-color: rgba(255, 127, 80, 0.542);
+}
+
+.space {
+  grid-column: span 12;
+  border-radius: 30px;
+}
+
+.shiftRight {
+  grid-column: span 5;
+  border-radius: 30px;
+}
+
+.backspace,
+.capsLock,
+.enter {
+  grid-column: span 4;
+  border-radius: 30px;
+}
+
+.tab,
+.delete,
+.shiftLeft {
+  grid-column: span 3;
+  border-radius: 30px;
+}
+
+.arrows {
+  grid-column: span 8;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 5px;
+  margin-left: 25px;
+}
+
+.arrowUp {
+  margin-right: 80px;
+  margin-left: 75px;
+  width: 70px;
+  height: 30px;
+  padding: 0;
+  border-radius: 20px;
+  order: 0;
+}
+
+.arrowLeft,
+.arrowRight,
+.arrowDown {
+  order: 1;
+  border-radius: 20px;
+  padding: 0;
+  width: 70px;
+  height: 30px;
+}
+
+.active {
+  background-color: coral;
+  border-color: white;
+  font-size: 18px;
+  transform: scale(95%);
+}/*# sourceMappingURL=style.css.map */
