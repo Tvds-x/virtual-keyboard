@@ -133,9 +133,12 @@ const onKeyDown = (event) => {
     }
     if (document.activeElement === textArea) {
       const caretPos = textArea.selectionStart;
-      if (!caretPos) textArea.value += pressedKey.innerText;
-      textArea.value = `${textArea.value.slice(0, caretPos)}${pressedKey.innerText}${textArea.value.slice(caretPos)}`;
-      textArea.selectionEnd = caretPos + 1;
+      if (!caretPos) {
+        textArea.value += pressedKey.innerText;
+      } else {
+        textArea.value = `${textArea.value.slice(0, caretPos)}${pressedKey.innerText}${textArea.value.slice(caretPos)}`;
+        textArea.selectionEnd = caretPos + 1;
+      }
     } else {
       textArea.value += pressedKey.innerText;
     }
@@ -227,9 +230,12 @@ const onMouseDown = (event) => {
   }
   if (document.activeElement === textArea) {
     const caretPos = textArea.selectionStart;
-    if (!caretPos) textArea.value += pressedKey.innerText;
-    textArea.value = `${textArea.value.slice(0, caretPos)}${pressedKey.innerText}${textArea.value.slice(caretPos)}`;
-    textArea.selectionEnd = caretPos + 1;
+    if (!caretPos) {
+      textArea.value += pressedKey.innerText;
+    } else {
+      textArea.value = `${textArea.value.slice(0, caretPos)}${pressedKey.innerText}${textArea.value.slice(caretPos)}`;
+      textArea.selectionEnd = caretPos + 1;
+    }
   } else {
     textArea.value += pressedKey.innerText;
   }
