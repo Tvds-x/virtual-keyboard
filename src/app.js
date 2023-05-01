@@ -2,7 +2,7 @@ import lang from './lang/lang.js';
 import createDescription from './modules/description.js';
 import createTextArea from './modules/textarea.js';
 import createKeyboard from './modules/keyboard.js';
-import ru from './lang/ru.js';
+import { isValidClick, isValidKey } from './modules/validators.js';
 
 function init() {
   document.body.appendChild(createDescription());
@@ -25,17 +25,6 @@ function init() {
   document.querySelector('.keyboard').addEventListener('mousedown', onMouseDown);
   // eslint-disable-next-line no-use-before-define
   document.querySelector('.keyboard').addEventListener('mouseup', onMouseUp);
-}
-
-function isValidKey(event) {
-  let flag = false;
-  ru.forEach((key) => {
-    if (event.code === key.keyCode) flag = true;
-  });
-  if (flag) {
-    return true;
-  }
-  return false;
 }
 
 function switchLanguage() {
@@ -120,6 +109,7 @@ const onKeyDown = (event) => {
 };
 
 const onMouseDown = (event) => {
+  if (isValidClick(event)) return;
   const textArea = document.querySelector('.input');
   const modifications = ['ControlLeft', 'MetaLeft', 'AltLeft', 'AltRight', 'ControlRight', 'ShiftLeft', 'ShiftRight', 'CapsLock'];
   event.preventDefault();
@@ -152,7 +142,7 @@ const onMouseDown = (event) => {
     return;
   }
   if (modifications.includes(pressedKey.getAttribute('data'))) {
-    presedKeys.add(event.code);
+    presedKeys.add(pressedKey.getAttribute('data'));
     if (presedKeys.has('CapsLock')) {
       if (!isCaps) {
         const key = document.querySelectorAll('.key');
@@ -189,17 +179,18 @@ const onKeyUp = (event) => {
 };
 
 const onMouseUp = (event) => {
+  if (isValidClick(event)) return;
   document.querySelector(`.key[data=${`"${event.target.getAttribute('data')}"`}]`).classList.remove('active');
   if (isCaps) { document.querySelector('.capsLock').classList.add('active'); }
   if (presedKeys.has('AltLeft') && presedKeys.has('ControlLeft')) switchLanguage();
-  presedKeys.delete(event.code);
+  presedKeys.delete(document.querySelector(`.key[data=${`"${event.target.getAttribute('data')}"`}]`).getAttribute('data'));
 };
 
 function addListeners() {
   document.body.addEventListener('keydown', onKeyDown);
   document.body.addEventListener('keyup', onKeyUp);
-  document.body.addEventListener('mousedown', onMouseUp);
-  document.body.addEventListener('mouseup', onMouseDown);
+  document.querySelector('.keyboard').addEventListener('mousedown', onMouseDown);
+  document.querySelector('.keyboard').addEventListener('mouseup', onMouseUp);
 }
 
 init();
